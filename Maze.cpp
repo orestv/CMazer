@@ -30,7 +30,7 @@ void Maze::destroy() {
         for (int i = 0; i < m_nWidth; i++)
             delete[] m_ppHorizontalWalls[i];
         delete[] m_ppHorizontalWalls;
-        m_ppVerticalWalls = 0;
+        m_ppHorizontalWalls = 0;
     }
     
     if (m_ppVerticalWalls != 0 && m_nHeight > 0) {
