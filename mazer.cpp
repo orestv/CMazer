@@ -10,6 +10,9 @@
 #include "Maze.h"
 #include "MazeGenerator.h"
 
+#include <QApplication>
+#include "MainWindow.h"
+
 using namespace std;
 
 void printMazeToConsole(Maze &m) {
@@ -38,7 +41,14 @@ void printMazeToConsole(Maze &m) {
  * 
  */
 int main(int argc, char** argv) {
+    QApplication app(argc, argv);
 
+    MainWindow *pWindow = new MainWindow();
+    pWindow->show();
+
+    return app.exec();
+
+    /*
     int width = 15, height = 15;
     Maze m(width, height);
     
@@ -47,5 +57,6 @@ int main(int argc, char** argv) {
     printMazeToConsole(m);
     
     return 0;
+    */
 }
 
