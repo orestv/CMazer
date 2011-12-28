@@ -26,7 +26,7 @@ MazeGenerator::MazeGenerator(const MazeGenerator& orig) {
 MazeGenerator::~MazeGenerator() {
 }
 
-void MazeGenerator::visit(Maze::Cell &pt, std::stack<Maze::Cell> &stPath, bool **ppVisited, int &nCounter) {
+void MazeGenerator::markVisited(Maze::Cell &pt, std::stack<Maze::Cell> &stPath, bool **ppVisited, int &nCounter) {
     stPath.push(pt);
     ppVisited[pt.col][pt.row] = true;
     nCounter--;
@@ -108,13 +108,13 @@ void MazeGenerator::generate(Maze &maze) {
     int nCellsLeft = width*height;
 
     stack<Maze::Cell> stPath; //current path stack
-    visit(pt, stPath, ppVisited, nCellsLeft);
+    markVisited(pt, stPath, ppVisited, nCellsLeft);
 
     while (nCellsLeft > 0) {
         while ((dir = pickDirection(pt, maze, ppVisited)) != NONE) { //walk a path while possible
             maze.setWall(pt.col, pt.row, dir, false);
             pt = next(pt, dir);
-            visit(pt, stPath, ppVisited, nCellsLeft);
+            markVisited(pt, stPath, ppVisited, nCellsLeft);
         }
         stPath.pop();
         while (!stPath.empty()) { //backtrack until we find a cell 
