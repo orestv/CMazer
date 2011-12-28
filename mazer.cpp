@@ -12,20 +12,12 @@
 
 using namespace std;
 
-/*
- * 
- */
-int main(int argc, char** argv) {
-
-    int width = 70, height = 90;
-    Maze m(width, height);
-    
-    MazeGenerator::generate(m);
+void printMazeToConsole(Maze &m) {
+    int width = m.width(), height = m.height();
     for (int col = 0; col < width; col++) {
         cout<<" _";
     }
     cout<<endl;
-    
     for (int row = 0; row < height; row++) {
         cout<<"|";
         for (int col = 0; col < width; col++) {
@@ -40,6 +32,19 @@ int main(int argc, char** argv) {
         }
         cout<<endl;
     }
+}
+
+/*
+ * 
+ */
+int main(int argc, char** argv) {
+
+    int width = 15, height = 15;
+    Maze m(width, height);
+    
+    MazeGenerator::generate(m);
+    
+    printMazeToConsole(m);
     
     return 0;
 }
