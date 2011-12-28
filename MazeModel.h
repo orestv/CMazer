@@ -4,8 +4,13 @@
 #include "Maze.h"
 
 class MazeModel {
+    public:
+        MazeModel();
+        ~MazeModel();
+        void regenerate(int width, int height);
 
-
+    private:
+        Maze *pMaze;
 };
 
 

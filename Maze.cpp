@@ -78,16 +78,12 @@ bool& Maze::getWallReference(int nCol, int nRow, Direction dir) {
     switch (dir) {
         case UP:
             return m_ppHorizontalWalls[nCol][nRow];
-            break;
         case RIGHT:
             return m_ppVerticalWalls[nCol+1][nRow];
-            break;
         case DOWN:
             return m_ppHorizontalWalls[nCol][nRow+1];            
-            break;
         case LEFT:
             return m_ppVerticalWalls[nCol][nRow];            
-            break;
     }
 }
 

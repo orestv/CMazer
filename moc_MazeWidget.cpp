@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MazeWidget.h'
 **
-** Created: Wed Dec 28 23:53:06 2011
+** Created: Thu Dec 29 01:13:20 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.2)
 **
 ** WARNING! All changes made in this file will be lost!
