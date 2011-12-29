@@ -32,59 +32,59 @@ void MazeGenerator::markVisited(Maze::Cell &pt, std::stack<Maze::Cell> &stPath, 
     nCounter--;
 }
 
-//returns a cell next to ptFrom in direction 'to'
-Maze::Cell MazeGenerator::next(Maze::Cell ptFrom, Direction to) {
+//returns a cell next to ptFrom in Maze::Direction 'to'
+Maze::Cell MazeGenerator::next(Maze::Cell ptFrom, Maze::Direction to) {
     Maze::Cell ptResult = ptFrom;
     switch (to) {
-        case UP:
+        case Maze::UP:
             ptResult.row--;
             break;
-        case RIGHT:
+        case Maze::RIGHT:
             ptResult.col++;
             break;
-        case DOWN:
+        case Maze::DOWN:
             ptResult.row++;
             break;
-        case LEFT:
+        case Maze::LEFT:
             ptResult.col--;
             break;
     }
     return ptResult;
 }
 
-//returns a random direction available from the cell
-//or NONE if the cell is blocked by other cells on all directions
-Direction MazeGenerator::pickDirection(Maze::Cell& ptFrom, Maze& maze, bool** ppVisited) {
-    list<Direction> lsDirs;
-    for (int i = 0; i != (int) NONE; i++) {
-        if (canGo(ptFrom, (Direction) i, maze, ppVisited))
-            lsDirs.push_back((Direction) i);
+//returns a random Maze::Direction available from the cell
+//or NONE if the cell is blocked by other cells on all Maze::Directions
+Maze::Direction MazeGenerator::pickDirection(Maze::Cell& ptFrom, Maze& maze, bool** ppVisited) {
+    list<Maze::Direction> lsDirs;
+    for (int i = 0; i != (int) Maze::NONE; i++) {
+        if (canGo(ptFrom, (Maze::Direction) i, maze, ppVisited))
+            lsDirs.push_back((Maze::Direction) i);
     }
     if (lsDirs.empty())
-        return NONE;
+        return Maze::NONE;
     int nIndex = rand() % lsDirs.size();
-    list<Direction>::const_iterator iter = lsDirs.begin();
+    list<Maze::Direction>::const_iterator iter = lsDirs.begin();
     for (int i = 0; i < nIndex; i++)
         iter++;
     return *iter;
 }
 
-//returns true if moving from ptFrom in the direction specified by 'to' is allowed
-bool MazeGenerator::canGo(Maze::Cell& ptFrom, Direction to, Maze &maze, bool** ppVisited) {
+//returns true if moving from ptFrom in the Maze::Direction specified by 'to' is allowed
+bool MazeGenerator::canGo(Maze::Cell& ptFrom, Maze::Direction to, Maze &maze, bool** ppVisited) {
     if (ptFrom.col < 0 || ptFrom.col >= maze.width()
             || ptFrom.row < 0 || ptFrom.row >= maze.height())
         return false;
     switch (to) {
-        case UP:
+        case Maze::UP:
             return (ptFrom.row - 1 >= 0
                     && !ppVisited[ptFrom.col][ptFrom.row - 1]);
-        case RIGHT:
+        case Maze::RIGHT:
             return (ptFrom.col + 1 < maze.width()
                     && !ppVisited[ptFrom.col + 1][ptFrom.row]);
-        case DOWN:
+        case Maze::DOWN:
             return (ptFrom.row + 1 < maze.height()
                     && !ppVisited[ptFrom.col][ptFrom.row + 1]);
-        case LEFT:
+        case Maze::LEFT:
             return (ptFrom.col - 1 >= 0
                     && !ppVisited[ptFrom.col - 1][ptFrom.row]);
     }
@@ -103,7 +103,7 @@ void MazeGenerator::generate(Maze &maze) {
     int nCol = 0;
     int nRow = rand() % height;
     Maze::Cell pt(nCol, nRow); //starting point
-    Direction dir;
+    Maze::Direction dir;
 
     int nCellsLeft = width*height;
 
@@ -111,7 +111,7 @@ void MazeGenerator::generate(Maze &maze) {
     markVisited(pt, stPath, ppVisited, nCellsLeft);
 
     while (nCellsLeft > 0) {
-        while ((dir = pickDirection(pt, maze, ppVisited)) != NONE) { //walk a path while possible
+        while ((dir = pickDirection(pt, maze, ppVisited)) != Maze::NONE) { //walk a path while possible
             maze.setWall(pt.col, pt.row, dir, false);
             pt = next(pt, dir);
             markVisited(pt, stPath, ppVisited, nCellsLeft);
@@ -119,7 +119,7 @@ void MazeGenerator::generate(Maze &maze) {
         stPath.pop();
         while (!stPath.empty()) { //backtrack until we find a cell 
             pt = stPath.top();    //from which we can start a new path
-            if (pickDirection(pt, maze, ppVisited) != NONE)
+            if (pickDirection(pt, maze, ppVisited) != Maze::NONE)
                 break;
             stPath.pop();
         }

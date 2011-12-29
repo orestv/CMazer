@@ -24,11 +24,11 @@ void printMazeToConsole(Maze &m) {
     for (int row = 0; row < height; row++) {
         cout<<"|";
         for (int col = 0; col < width; col++) {
-            if (m.hasWall(col, row, DOWN))
+            if (m.hasWall(col, row, Maze::DOWN))
                 cout<<"_";
             else
                 cout<<" ";
-            if (m.hasWall(col, row, RIGHT))
+            if (m.hasWall(col, row, Maze::RIGHT))
                 cout<<"|";
             else
                 cout<<" ";

@@ -8,10 +8,10 @@
 #ifndef MAZE_H
 #define	MAZE_H
 
-enum Direction {UP, RIGHT, DOWN, LEFT, NONE};
 
 class Maze {
 public:
+    enum Direction {UP, RIGHT, DOWN, LEFT, NONE};
     Maze(int width, int height);
     Maze(const Maze& orig);
     virtual ~Maze();

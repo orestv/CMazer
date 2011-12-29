@@ -18,10 +18,10 @@ public:
     virtual ~MazeGenerator();
     
     static void generate(Maze &maze);
-    static bool canGo(Maze::Cell &ptFrom, Direction to, Maze &maze, bool **ppVisited);
-    static Direction pickDirection (Maze::Cell &ptFrom, Maze &maze, bool **ppVisited);
+    static bool canGo(Maze::Cell &ptFrom, Maze::Direction to, Maze &maze, bool **ppVisited);
+    static Maze::Direction pickDirection (Maze::Cell &ptFrom, Maze &maze, bool **ppVisited);
     static void markVisited(Maze::Cell &pt, std::stack<Maze::Cell> &stPath, bool **ppVisited, int &nCounter);
-    static Maze::Cell next(Maze::Cell ptFrom, Direction to);
+    static Maze::Cell next(Maze::Cell ptFrom, Maze::Direction to);
     
 private:
     
