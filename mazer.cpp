@@ -12,6 +12,7 @@
 
 #include <QApplication>
 #include "MainWindow.h"
+#include "math.h"
 
 using namespace std;
 
@@ -41,6 +42,7 @@ void printMazeToConsole(Maze &m) {
  * 
  */
 int main(int argc, char** argv) {
+    srand((unsigned) time(NULL));
     QApplication app(argc, argv);
 
     MainWindow *pWindow = new MainWindow();

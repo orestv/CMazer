@@ -92,7 +92,6 @@ bool MazeGenerator::canGo(Maze::Cell& ptFrom, Maze::Direction to, Maze &maze, bo
 }
 
 void MazeGenerator::generate(Maze &maze) {
-    srand((unsigned) time(NULL));
     int width = maze.width(), height = maze.height();
     bool **ppVisited = new bool*[width]; //visited points matrix
     for (int i = 0; i < width; i++) {
@@ -124,6 +123,12 @@ void MazeGenerator::generate(Maze &maze) {
             stPath.pop();
         }
     }
+    
+    int nEntranceRow = rand() % height;
+    int nExitRow = rand() % height;
+
+    maze.setWall(0, nEntranceRow, Maze::LEFT, false);;
+    maze.setWall(width-1, nExitRow, Maze::RIGHT, false);;
 
     for (int i = 0; i < width; i++)
         delete[] ppVisited[i];
