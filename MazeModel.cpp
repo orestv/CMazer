@@ -34,7 +34,7 @@ int MazeModel::height() {
 }
 
 int MazeModel::cellWalls(int col, int row) {
-    if (col < 0 || row < 0 || col >= this->width() || row >= this->width())
+    if (col < 0 || row < 0 || col >= this->width() || row >= this->height())
         throw "Cell coordinates out of bounds: cellWalls";
     int result = 0;
     if (pMaze->hasWall(col, row, Maze::UP))
