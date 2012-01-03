@@ -1,36 +1,30 @@
 #include "MazePainter.h"
 
 void MazePainter::paint(MazeModel *pModel, QPainter &painter) {
+
     QRect rSize = painter.viewport();
-    painter.setBrush(Qt::white);
 
-    painter.drawRect(rSize);
-
-    int nMargin = 5;
-
-    int nWidgetWidth = rSize.width() - 2*nMargin;
-    int nWidgetHeight = rSize.height() - 2*nMargin;
     if (!pModel->hasMaze())
         return;
 
     int nMazeWidth = pModel->width();
     int nMazeHeight = pModel->height();
 
-    float nCellSize = std::min((float)nWidgetWidth/nMazeWidth,
-                             (float)nWidgetHeight/nMazeHeight);
+    float nCellSize = std::min((float)rSize.width()/nMazeWidth,
+                             (float)rSize.height()/nMazeHeight);
 
     QPointF ptNW, ptNE, ptSW, ptSE;
 
     for (int row = 0; row < nMazeHeight; row++) {
         for (int col = 0; col < nMazeWidth; col++) {
-            ptNW = QPointF(col * nCellSize + nMargin,
-                          row * nCellSize + nMargin);
-            ptNE = QPointF((col+1) * nCellSize + nMargin,
-                          row * nCellSize + nMargin);
-            ptSW = QPointF(col * nCellSize + nMargin,
-                          (row+1) * nCellSize + nMargin);
-            ptSE = QPointF((col+1) * nCellSize + nMargin,
-                          (row+1) * nCellSize + nMargin);
+            ptNW = QPointF(col * nCellSize,
+                          row * nCellSize);
+            ptNE = QPointF((col+1) * nCellSize,
+                          row * nCellSize);
+            ptSW = QPointF(col * nCellSize,
+                          (row+1) * nCellSize);
+            ptSE = QPointF((col+1) * nCellSize,
+                          (row+1) * nCellSize);
 
             int walls = pModel->cellWalls(col, row);
             if (walls & MazeModel::UP)

@@ -1,6 +1,7 @@
 
 #include "MazeWidget.h"
 #include <QPainter>
+#include <QWMatrix>
 #include "math.h"
 #include "MazePainter.h"
 
@@ -23,6 +24,21 @@ MazeModel* MazeWidget::model() {
 
 void MazeWidget::paintEvent(QPaintEvent *pEvent) {
     QPainter painter(this);
+
+    painter.setBrush(Qt::white);
+    painter.drawRect(painter.viewport());
+
+    if (!pModel->hasMaze())
+        return;
+
+    int nMargin = 5;
+    float fX, fY;
+    fX = 1. - (float)nMargin*2/this->width();
+    fY = 1. - (float)nMargin*2/this->height();
+
+    painter.scale(fX, fY);
+    painter.translate(nMargin, nMargin);
+
     MazePainter::paint(pModel, painter);
 }
 
