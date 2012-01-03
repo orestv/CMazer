@@ -22,6 +22,9 @@ MazeModel* MazeWidget::model() {
 
 void MazeWidget::paintEvent(QPaintEvent *pEvent) {
     QPainter painter(this);
+    painter.setBrush(Qt::white);
+
+    painter.drawRect(1, 1, this->width()-2, this->height()-2);
 
     int nMargin = 5;
 
