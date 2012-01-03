@@ -5,20 +5,24 @@
 #include <QPushButton>
 #include "MazeWidget.h"
 #include "MazeModel.h"
+#include <QPrinter>
 
 class MainWindow : public QWidget {
     Q_OBJECT
     public:
         MainWindow(QWidget *parent = 0);
-public slots:
+    public slots:
         void generateMaze();
+        void showPrintDialog();
 
     protected:
         void initComponents();
+        void print(QPrinter &printer);
 
     private:
         QPushButton *pbtnQuit;
         QPushButton *pbtnGenerate;
+        QPushButton *pbtnPrint;
 
         MazeModel *pMazeModel;
         MazeWidget *pMazeWidget;
