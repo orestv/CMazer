@@ -13,6 +13,7 @@
 #include <QApplication>
 #include "MainWindow.h"
 #include "math.h"
+#include <time.h>
 
 using namespace std;
 

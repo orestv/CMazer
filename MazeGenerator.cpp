@@ -11,7 +11,6 @@
 #include <stdlib.h>
 #include <stack>
 #include <list>
-#include <time.h>
 
 #include <iostream>
 
