@@ -6,6 +6,7 @@
 #include "MazeWidget.h"
 #include "MazeModel.h"
 #include <QPrinter>
+#include <QSpinBox>
 
 class MainWindow : public QWidget {
     Q_OBJECT
@@ -23,6 +24,8 @@ class MainWindow : public QWidget {
         QPushButton *pbtnQuit;
         QPushButton *pbtnGenerate;
         QPushButton *pbtnPrint;
+	QSpinBox *pspWidth;
+	QSpinBox *pspHeight;
 
         MazeModel *pMazeModel;
         MazeWidget *pMazeWidget;
