@@ -36,20 +36,20 @@ void MazeWidget::paintEvent(QPaintEvent *pEvent) {
     int nMazeWidth = pModel->width();
     int nMazeHeight = pModel->height();
 
-    int nCellSize = std::min(nWidgetWidth/nMazeWidth,
-                             nWidgetHeight/nMazeHeight);
+    float nCellSize = std::min((float)nWidgetWidth/nMazeWidth,
+                             (float)nWidgetHeight/nMazeHeight);
 
-    QPoint ptNW, ptNE, ptSW, ptSE;
+    QPointF ptNW, ptNE, ptSW, ptSE;
 
     for (int row = 0; row < nMazeHeight; row++) {
         for (int col = 0; col < nMazeWidth; col++) {
-            ptNW = QPoint(col * nCellSize + nMargin,
+            ptNW = QPointF(col * nCellSize + nMargin,
                           row * nCellSize + nMargin);
-            ptNE = QPoint((col+1) * nCellSize + nMargin,
+            ptNE = QPointF((col+1) * nCellSize + nMargin,
                           row * nCellSize + nMargin);
-            ptSW = QPoint(col * nCellSize + nMargin,
+            ptSW = QPointF(col * nCellSize + nMargin,
                           (row+1) * nCellSize + nMargin);
-            ptSE = QPoint((col+1) * nCellSize + nMargin,
+            ptSE = QPointF((col+1) * nCellSize + nMargin,
                           (row+1) * nCellSize + nMargin);
 
             int walls = pModel->cellWalls(col, row);
