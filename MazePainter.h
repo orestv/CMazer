@@ -6,7 +6,7 @@
 
 class MazePainter {
     public:
-	    static void paint(MazeModel *pModel, QPainter &painter);
+        static void paint(MazeModel *pModel, QPainter &painter);
 };
 
 #endif
