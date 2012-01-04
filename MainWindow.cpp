@@ -11,10 +11,10 @@
 #include "MazeWidget.h"
 #include "MazePainter.h"
 #include <QLabel>
+#include <math.h>
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     initComponents();
-
 }
 
 void MainWindow::initComponents() {
@@ -24,15 +24,15 @@ void MainWindow::initComponents() {
 
     pSizeLayout->addWidget(new QLabel("Width"), 0, 0);
     pspWidth = new QSpinBox();
-    pspWidth->setMinimum(17);       //strange values to keep A4's proportions with height's min/max
-    pspWidth->setMaximum(212);
+    pspWidth->setMinimum(10);
+    pspWidth->setMaximum(200);
     pspWidth->setValue(70);
     pSizeLayout->addWidget(pspWidth, 0, 1);
 
     pSizeLayout->addWidget(new QLabel("Height"), 1, 0);
     pspHeight = new QSpinBox();
-    pspHeight->setMinimum(12);
-    pspHeight->setMaximum(150);
+    pspHeight->setMinimum(pspWidth->minimum()/sqrt(2.));        //ensure A4's proportions are saved
+    pspHeight->setMaximum(pspHeight->maximum()/sqrt(2.));
     pspHeight->setValue(50);
     pSizeLayout->addWidget(pspHeight, 1, 1);
 
@@ -83,6 +83,7 @@ void MainWindow::showPrintDialog() {
 }
 
 void MainWindow::print(QPrinter &printer) {
+    printer.setOrientation(QPrinter::Landscape);
     QPainter painter;
     painter.begin(&printer);
 
@@ -105,7 +106,7 @@ void MainWindow::A4CheckboxClicked(bool bChecked) {
 
 void MainWindow::setProportionalHeight() {
     int width = pspWidth->value();
-    int height = width / 1.4142135623730950488016887242097; //sqrt(2), A4's scale
+    int height = width / sqrt(2.);
     pspHeight->setValue(height);
 }
 

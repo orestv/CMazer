@@ -36,7 +36,6 @@ class MainWindow : public QWidget {
 
         MazeModel *pMazeModel;
         MazeWidget *pMazeWidget;
-
 };
 
 
