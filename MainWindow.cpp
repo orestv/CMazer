@@ -77,6 +77,7 @@ void MainWindow::generateMaze() {
 
 void MainWindow::showPrintDialog() {
     QPrinter printer;
+    printer.setDocName("Maze");
     QPrintDialog *pDialog = new QPrintDialog(&printer);
     if (pDialog->exec() == QDialog::Accepted)
         print(printer);
