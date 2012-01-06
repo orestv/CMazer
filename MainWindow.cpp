@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
 
 void MainWindow::initComponents() {
     QVBoxLayout *pMainLayout = new QVBoxLayout();
-    QHBoxLayout *pControlsLayout = new QHBoxLayout();
+    QGridLayout *pControlsLayout = new QGridLayout();
     QGridLayout *pSizeLayout = new QGridLayout();
 
     pSizeLayout->addWidget(new QLabel("Width"), 0, 0);
@@ -39,16 +39,17 @@ void MainWindow::initComponents() {
     pchkA4Scale = new QCheckBox("Keep A4 scale");
     pSizeLayout->addWidget(pchkA4Scale, 1, 2);
 
-    pControlsLayout->addLayout(pSizeLayout);
+    pControlsLayout->addLayout(pSizeLayout, 0, 0, 2, 1);
 
     pbtnGenerate = new QPushButton("&Generate");
-    pControlsLayout->addWidget(pbtnGenerate);
+    pControlsLayout->addWidget(pbtnGenerate, 0, 1);
 
     pbtnPrint = new QPushButton("&Print");
-    pControlsLayout->addWidget(pbtnPrint);
+    pbtnPrint->setEnabled(false);
+    pControlsLayout->addWidget(pbtnPrint, 1, 1);
 
     pbtnQuit = new QPushButton("&Quit");
-    pControlsLayout->addWidget(pbtnQuit);
+    pControlsLayout->addWidget(pbtnQuit, 0, 2, 2, 1);
 
 
     pMainLayout->addLayout(pControlsLayout);
@@ -73,6 +74,7 @@ void MainWindow::generateMaze() {
     int height = pspHeight->value();;
     pMazeModel->regenerate(width, height);
     pMazeWidget->repaint();
+    pbtnPrint->setEnabled(true);
 }
 
 void MainWindow::showPrintDialog() {
