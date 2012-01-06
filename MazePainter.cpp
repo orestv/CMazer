@@ -1,11 +1,10 @@
 #include "MazePainter.h"
 
 void MazePainter::paint(MazeModel *pModel, QPainter &painter) {
-
-    QRect rSize = painter.viewport();
-
     if (!pModel->hasMaze())
         return;
+
+    QRect rSize = painter.viewport();
 
     int nMazeWidth = pModel->width();
     int nMazeHeight = pModel->height();
