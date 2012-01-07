@@ -14,7 +14,7 @@ Q_OBJECT
 
         QSize value();
     private:
-        const int MIN_WIDTH = 15;
+        static const int MIN_WIDTH = 15;
         void initComponents();
         void setSpinBounds(int maxWidth, int maxHeight, float scale);
 

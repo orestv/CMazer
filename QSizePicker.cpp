@@ -13,10 +13,7 @@ QSizePicker::QSizePicker(int maxWidth, int maxHeight, QWidget *parent)
     this->maxHeight = maxHeight;
     this->scale = (float)maxWidth/maxHeight;
 
-    m_pspWidth->setMaximum(maxWidth);
-    m_pspHeight->setMaximum(maxHeight);
-    m_pspWidth->setMinimum(MIN_WIDTH);
-    m_pspHeight->setMinimum(MIN_WIDTH/scale);
+    setSpinBounds(maxWidth, maxHeight, scale);
 }
 
 QSizePicker::QSizePicker(int maxWidth, float scale, QWidget *parent)
@@ -26,6 +23,10 @@ QSizePicker::QSizePicker(int maxWidth, float scale, QWidget *parent)
     this->scale = scale;
     this->maxHeight = maxWidth/scale;
 
+    setSpinBounds(maxWidth, maxHeight, scale);
+}
+
+void QSizePicker::setSpinBounds(int maxWidth, int maxHeight, float scale) {
     m_pspWidth->setMaximum(maxWidth);
     m_pspHeight->setMaximum(maxHeight);
     m_pspWidth->setMinimum(MIN_WIDTH);
