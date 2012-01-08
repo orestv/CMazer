@@ -1,6 +1,7 @@
 #include "QSizePicker.h"
 #include <QGridLayout>
 #include <QLabel>
+#include <math.h>
 
 QSizePicker::QSizePicker(QWidget *parent) : QWidget(parent){
     initComponents();
@@ -16,7 +17,7 @@ QSizePicker::QSizePicker(int maxWidth, int maxHeight, QWidget *parent)
     setSpinBounds(maxWidth, maxHeight, scale);
 }
 
-QSizePicker::QSizePicker(int maxWidth, float scale, QWidget *parent)
+QSizePicker::QSizePicker(int maxWidth, double scale, QWidget *parent)
 :QWidget(parent) {
     initComponents();
     this->maxWidth = maxWidth;
@@ -40,6 +41,7 @@ void QSizePicker::initComponents() {
     QLabel *plblWidth = new QLabel("Width");
     QLabel *plblHeight = new QLabel("Height");
     m_pchkConnect = new QCheckBox("Keep A4 scale");
+    QObject::connect(m_pchkConnect, SIGNAL(clicked(bool)), this, SLOT(scaleCheckboxClicked(bool)));
 
     pLayout->addWidget(plblWidth, 0, 0);
     pLayout->addWidget(m_pspWidth, 0, 1);
@@ -48,4 +50,25 @@ void QSizePicker::initComponents() {
     pLayout->addWidget(m_pchkConnect, 0, 2, 2, 1);
 
     this->setLayout(pLayout);
+}
+
+QSize QSizePicker::value() const {
+    return QSize(m_pspWidth->value(), m_pspHeight->value());
+}
+
+void QSizePicker::updateHeightSpinBox(int width) {
+    int height = width/scale;
+    m_pspHeight->setValue(height);
+}
+
+void QSizePicker::scaleCheckboxClicked(bool bChecked) {
+    if (bChecked) {
+        cachedHeight = m_pspHeight->value();
+        QObject::connect(m_pspWidth, SIGNAL(valueChanged(int)), this, SLOT(updateHeightSpinBox(int)));
+        updateHeightSpinBox(m_pspWidth->value());
+    } else {
+        QObject::disconnect(m_pspWidth, SIGNAL(valueChanged(int)), this, SLOT(updateHeightSpinBox(int)));
+        m_pspHeight->setValue(cachedHeight);
+    }
+    m_pspHeight->setEnabled(!bChecked);
 }

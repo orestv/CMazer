@@ -22,22 +22,9 @@ void MainWindow::initComponents() {
     QGridLayout *pControlsLayout = new QGridLayout();
     QGridLayout *pSizeLayout = new QGridLayout();
 
-    pSizeLayout->addWidget(new QLabel("Width"), 0, 0);
-    pspWidth = new QSpinBox();
-    pspWidth->setMinimum(10);
-    pspWidth->setMaximum(200);
-    pspWidth->setValue(70);
-    pSizeLayout->addWidget(pspWidth, 0, 1);
+    pSizePicker = new QSizePicker(250, sqrt(2.));
 
-    pSizeLayout->addWidget(new QLabel("Height"), 1, 0);
-    pspHeight = new QSpinBox();
-    pspHeight->setMinimum(pspWidth->minimum()/sqrt(2.));        //ensure A4's proportions are saved
-    pspHeight->setMaximum(pspHeight->maximum()/sqrt(2.));
-    pspHeight->setValue(50);
-    pSizeLayout->addWidget(pspHeight, 1, 1);
-
-    pchkA4Scale = new QCheckBox("Keep A4 scale");
-    pSizeLayout->addWidget(pchkA4Scale, 1, 2);
+    pSizeLayout->addWidget(pSizePicker, 0, 0, 2, 1);
 
     pControlsLayout->addLayout(pSizeLayout, 0, 0, 2, 1);
 
@@ -66,13 +53,11 @@ void MainWindow::initComponents() {
     connect(pbtnQuit, SIGNAL(clicked()), qApp, SLOT(quit()));
     connect(pbtnGenerate, SIGNAL(clicked()), this, SLOT(generateMaze()));
     connect(pbtnPrint, SIGNAL(clicked()), this, SLOT(showPrintDialog()));
-    connect(pchkA4Scale, SIGNAL(clicked(bool)), this, SLOT(A4CheckboxClicked(bool)));
 }
 
 void MainWindow::generateMaze() {
-    int width = pspWidth->value();
-    int height = pspHeight->value();;
-    pMazeModel->regenerate(width, height);
+    QSize size = pSizePicker->value();
+    pMazeModel->regenerate(size.width(), size.height());
     pMazeWidget->repaint();
     pbtnPrint->setEnabled(true);
 }
@@ -96,26 +81,5 @@ void MainWindow::print(QPrinter &printer) {
     painter.end();
 }
 
-void MainWindow::A4CheckboxClicked(bool bChecked) {
-    if (bChecked) {
-        nCachedHeight = pspHeight->value();
-        setProportionalHeight();
-        connect(pspWidth, SIGNAL(valueChanged(int)), this, SLOT(updateHeight()));
-    } else {
-        pspHeight->setValue(nCachedHeight);
-        disconnect(pspWidth, SIGNAL(valueChanged(int)), this, SLOT(updateHeight()));
-    }
-    pspHeight->setEnabled(!bChecked);
-}
-
-void MainWindow::setProportionalHeight() {
-    int width = pspWidth->value();
-    int height = width / sqrt(2.);
-    pspHeight->setValue(height);
-}
-
-void MainWindow::updateHeight() {
-    setProportionalHeight();
-}
 
 #endif

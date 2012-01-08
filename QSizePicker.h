@@ -10,9 +10,12 @@ Q_OBJECT
     public:
         QSizePicker(QWidget *parent = 0);
         QSizePicker(int maxWidth, int maxHeight, QWidget *parent = 0);
-        QSizePicker(int maxWidth, float scale, QWidget *parent = 0);
+        QSizePicker(int maxWidth, double scale, QWidget *parent = 0);
 
-        QSize value();
+        QSize value() const;
+    private slots:
+        void updateHeightSpinBox(int width);
+        void scaleCheckboxClicked(bool bClicked);
     private:
         static const int MIN_WIDTH = 15;
         void initComponents();
@@ -20,7 +23,8 @@ Q_OBJECT
 
         int maxWidth;
         int maxHeight;
-        float scale;
+        double scale;
+        int cachedHeight;
 
         QSpinBox *m_pspWidth;
         QSpinBox *m_pspHeight;

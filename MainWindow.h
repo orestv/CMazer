@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include "MazeWidget.h"
 #include "MazeModel.h"
+#include "QSizePicker.h"
 #include <QPrinter>
 #include <QSpinBox>
 #include <QCheckBox>
@@ -16,23 +17,16 @@ class MainWindow : public QWidget {
     public slots:
         void generateMaze();
         void showPrintDialog();
-        void A4CheckboxClicked(bool bChecked);
-        void updateHeight();
 
     protected:
         void initComponents();
         void print(QPrinter &printer);
-        void setProportionalHeight();
 
     private:
         QPushButton *pbtnQuit;
         QPushButton *pbtnGenerate;
         QPushButton *pbtnPrint;
-        QSpinBox *pspWidth;
-        QSpinBox *pspHeight;
-        QCheckBox *pchkA4Scale;
-        int nCachedHeight;      //saved when A4 checkbox is checked,
-                                //restored when it's unchecked
+        QSizePicker *pSizePicker;
 
         MazeModel *pMazeModel;
         MazeWidget *pMazeWidget;
