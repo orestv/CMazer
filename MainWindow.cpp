@@ -74,7 +74,8 @@ void MainWindow::print(QPrinter &printer) {
     printer.setOrientation(QPrinter::Landscape);
     QPainter painter;
     painter.begin(&printer);
-    painter.setPen(QPen(QBrush(QColor(0, 0, 0)), 1.5));
+
+    painter.setPen(QPen(QBrush(QColor(0, 0, 0)), 1.5, Qt::SolidLine, Qt::FlatCap));
 
     MazePainter::paint(pMazeModel, painter);
 
