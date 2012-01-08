@@ -23,6 +23,7 @@ void MainWindow::initComponents() {
     QGridLayout *pSizeLayout = new QGridLayout();
 
     pSizePicker = new QSizePicker(250, sqrt(2.));
+    pSizePicker->setValue(QSize(90, 75));
 
     pSizeLayout->addWidget(pSizePicker, 0, 0, 2, 1);
 

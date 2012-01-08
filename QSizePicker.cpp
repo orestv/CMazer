@@ -56,6 +56,11 @@ QSize QSizePicker::value() const {
     return QSize(m_pspWidth->value(), m_pspHeight->value());
 }
 
+void QSizePicker::setValue(QSize value) {
+    m_pspHeight->setValue(value.height());
+    m_pspWidth->setValue(value.width());
+}
+
 void QSizePicker::updateHeightSpinBox(int width) {
     int height = width/scale;
     m_pspHeight->setValue(height);

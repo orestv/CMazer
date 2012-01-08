@@ -13,6 +13,7 @@ Q_OBJECT
         QSizePicker(int maxWidth, double scale, QWidget *parent = 0);
 
         QSize value() const;
+        void setValue(QSize size);
     private slots:
         void updateHeightSpinBox(int width);
         void scaleCheckboxClicked(bool bClicked);
