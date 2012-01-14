@@ -10,8 +10,6 @@ MazeWidget::MazeWidget(QWidget *parent) : QWidget(parent){
 }
 
 MazeWidget::~MazeWidget() {
-    if (pModel != 0)
-        delete pModel;
 }
 
 void MazeWidget::setModel(MazeModel *pModel) {

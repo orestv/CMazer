@@ -17,6 +17,11 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent){
     initComponents();
 }
 
+MainWindow::~MainWindow() {
+    if (pMazeModel)
+        delete pMazeModel;
+}
+
 void MainWindow::initComponents() {
     QVBoxLayout *pMainLayout = new QVBoxLayout();
     QGridLayout *pControlsLayout = new QGridLayout();
@@ -66,8 +71,8 @@ void MainWindow::generateMaze() {
 void MainWindow::showPrintDialog() {
     QPrinter printer;
     printer.setDocName("Maze");
-    QPrintDialog *pDialog = new QPrintDialog(&printer);
-    if (pDialog->exec() == QDialog::Accepted)
+    QPrintDialog dialog(&printer);
+    if (dialog.exec() == QDialog::Accepted)
         print(printer);
 }
 
